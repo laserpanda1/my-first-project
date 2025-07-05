@@ -1,4 +1,7 @@
 spring:
+  data:
+    rest:
+      base-path: /data-api
   security:
     user:
       name: buzz
@@ -31,3 +34,4 @@ spring:
 logging:
   level:
     tacos: WARN
+
