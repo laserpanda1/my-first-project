@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import sia.tacocloud.Taco;
+import sia.tacocloud.data.OrderRepository;
 import sia.tacocloud.data.TacoRepository;
 
 @RestController
@@ -15,6 +16,7 @@ import sia.tacocloud.data.TacoRepository;
 @CrossOrigin(origins="http://tacocloud:8080")
 public class TacoController {
 
+    private OrderRepository orderRepo;
     private TacoRepository tacoRepo;
 
     public TacoController(TacoRepository tacoRepo) {
@@ -35,4 +37,45 @@ public class TacoController {
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Taco postTaco(@RequestBody Taco taco) {
+        return tacoRepo.save(taco);
+    }
+
+    @PatchMapping(path = "/{orderId}", consumes = "application/json")
+    public TacoOrder patchOrder(@PathVariable("orderId") Long orderId,
+                                @RequestBody TacoOrder patch) {
+        TacoOrder order = orderRepo.findById(orderId).get();
+        if(patch.getDeliveryName() != null) {
+            order.setDeliveryName(patch.getDeliveryName());
+        }
+        if(patch.getDeliveryCity() != null) {
+            order.setDeliveryCity(patch.getDeliveryCity());
+        }
+        if(patch.getDeliveryState() != null) {
+            order.setDeliveryState(patch.getDeliveryState());
+        }
+        if(patch.getDeliveryStreet() != null) {
+            order.setDeliveryStreet(patch.getDeliveryStreet());
+        }
+        if(patch.getDeliveryZip() != null) {
+            order.setDeliveryZip(patch.getDeliveryZip());
+        }
+        if(patch.getCcNumber() != null) {
+            order.setCcNumber(patch.getCcNumber());
+        }
+        if(patch.getCcExpiration() != null) {
+            order.setCcExpiration(patch.getCcExpiration());
+        }
+        if(patch.getCcCVV() != null) {
+            order.setCcCVV(patch.getCcCVV());
+        }
+        return orderRepo.save(order);
+    }
+
+
+
+
 }
