@@ -4,22 +4,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import java.util.*;
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import sia.tacocloud.security.UserRepository;
+
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
@@ -58,14 +55,16 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.disable()) // Для тестирования (в продакшене включить!)
-                .build();
+                .csrf(csrf -> csrf.disable())
+
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame
+                                .sameOrigin())).build();
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
-        registry.addViewController("/login");
         registry.addViewController("/login").setViewName("/login");
     }
 }

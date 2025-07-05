@@ -14,6 +14,7 @@ import sia.tacocloud.security.User;
 
 @Data
 @Entity
+@Table(name = "Taco_Order")
 public class TacoOrder implements Serializable {
 
     @ManyToOne
@@ -22,7 +23,7 @@ public class TacoOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Date placedAt;
@@ -51,11 +52,18 @@ public class TacoOrder implements Serializable {
     @Digits(integer=3,fraction = 0,message = "Invalid CVV")
     private String ccCVV;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tacoOrder", cascade = CascadeType.ALL)
     private List<Taco> tacos = new ArrayList<>();
 
-    public void addTaco(Taco taco) {
-        taco.setTacoOrder(this);
-        this.tacos.add(taco);
+    public void addTaco(Taco design) {
+        this.tacos.add(design);
+        design.setTacoOrder(this);
+
     }
+
+    @PrePersist
+    void placedAt() {
+        this.placedAt = new Date();
+    }
+
 }
