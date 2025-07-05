@@ -1,5 +1,6 @@
 package sia.tacocloud;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import sia.tacocloud.data.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,8 +27,9 @@ public class Taco {
     @Size(min=5, message = "Name must be at least 5 characters long")
     private String name;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "taco_order_id", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "taco_order_id", nullable = true)
+    @JsonIgnore
     private TacoOrder tacoOrder;
 
     @Size(min=1, message = "You must choose at least 1 ingredient")

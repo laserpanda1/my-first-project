@@ -37,6 +37,10 @@ public class TacoCloudApplication implements WebMvcConfigurer {
 			OrderRepository orderRepo  // Добавляем репозиторий заказов
 	) {
 		return args -> {
+			tacoRepo.deleteAll();
+			orderRepo.deleteAll();;
+			repo.deleteAll();
+
 			// Сохраняем ингредиенты (как у вас)
 			Ingredient flourTortilla = new Ingredient("FLTO","Flour Tortilla", Type.WRAP);
 			Ingredient cornTortilla = new Ingredient("COTO", "Corn Tortilla", Type.WRAP);
@@ -69,25 +73,33 @@ public class TacoCloudApplication implements WebMvcConfigurer {
 			order.setCcNumber("4111111111111111");
 			order.setCcExpiration("12/25");
 			order.setCcCVV("123");
+			TacoOrder savedOrder = orderRepo.save(order);
+
 
 			// Создаем тако и добавляем в заказ
 			Taco taco1 = new Taco();
 			taco1.setName("Carnivore");
 			taco1.setIngredients(Arrays.asList(flourTortilla, groundBeef, carnitas, sourCream, salsa, cheddar));
+			taco1.setTacoOrder(savedOrder);
 			order.addTaco(taco1);  // Устанавливаем связь!
+			tacoRepo.save(taco1);
 
 			Taco taco2 = new Taco();
 			taco2.setName("Bovine Bounty");
 			taco2.setIngredients(Arrays.asList(cornTortilla, groundBeef, cheddar, jack, sourCream));
+			taco2.setTacoOrder(savedOrder);
 			order.addTaco(taco2);  // Добавляем второе тако
+			tacoRepo.save(taco2);
 
 			Taco taco3 = new Taco();
 			taco3.setName("Veg-Out");
 			taco3.setIngredients(Arrays.asList(flourTortilla, cornTortilla, tomatoes, lettuce, salsa));
+			taco3.setTacoOrder(savedOrder);
 			order.addTaco(taco3);  // Добавляем третье тако
+			tacoRepo.save(taco3);
 
 			// Сохраняем заказ (каскадно сохранит тако)
-			orderRepo.save(order);
+			//orderRepo.save(order);
 
 			// Создаем пользователя
 			userRepo.save(new User(

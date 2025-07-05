@@ -39,7 +39,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/images/**").permitAll()
+                        .requestMatchers("/","/api/**", "/login", "/register", "/images/**").permitAll()
                        // .requestMatchers(HttpMethod.GET, "/design").permitAll() // Разрешаем просмотр формы
                        // .requestMatchers(HttpMethod.POST, "/design").hasRole("USER") // Только для авторизованных
                         .requestMatchers("/orders/**", "/design/**").hasRole("USER")
