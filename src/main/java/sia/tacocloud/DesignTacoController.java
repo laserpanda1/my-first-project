@@ -64,10 +64,10 @@ public class DesignTacoController {
     }
 
     @ModelAttribute(name = "user")
-    public User user(Principal principal) {
-        String username = principal.getName();
-        User user = userRepo.findByUsername(username);
-        return user;
+    public String user(Principal principal) {
+        //String username = principal.getName();
+        //User user = userRepo.findByUsername(username);
+        return principal.getName();
     }
 
     @GetMapping

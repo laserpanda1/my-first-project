@@ -24,7 +24,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     public UserDetailsService userDetailsService(UserRepository userRepo) {
         return username -> {
             sia.tacocloud.security.User user = userRepo.findByUsername(username);
@@ -34,22 +34,21 @@ public class SecurityConfig implements WebMvcConfigurer {
 
         };
     }
-
+*/
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/register", "/images/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/design").permitAll() // Разрешаем просмотр формы
-                        .requestMatchers(HttpMethod.POST, "/design").hasRole("USER") // Только для авторизованных
-                        .requestMatchers("/orders", "/design/**").hasRole("USER")
+                       // .requestMatchers(HttpMethod.GET, "/design").permitAll() // Разрешаем просмотр формы
+                       // .requestMatchers(HttpMethod.POST, "/design").hasRole("USER") // Только для авторизованных
+                        .requestMatchers("/orders/**", "/design/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/design", true) // После входа - на design
+                        .defaultSuccessUrl("/design") // После входа - на design
                         .failureUrl("/login?error=true")
-                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
