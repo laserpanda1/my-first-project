@@ -1,6 +1,7 @@
 package sia.tacocloud;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.rest.core.annotation.RestResource;
 import sia.tacocloud.data.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,6 +16,7 @@ import jakarta.persistence.*;
 
 @Data
 @Entity
+@RestResource(rel="tacos", path="tacos")
 public class Taco {
 
     @Id

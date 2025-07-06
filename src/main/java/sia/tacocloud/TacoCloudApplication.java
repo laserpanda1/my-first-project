@@ -3,7 +3,9 @@ package sia.tacocloud;
 import java.util.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.hateoas.client.Traverson;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.boot.SpringApplication;
@@ -114,6 +116,12 @@ public class TacoCloudApplication implements WebMvcConfigurer {
 			));
 		};
 	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
 }
 	/*@Bean
 	@Profile({"dev","qa"})
