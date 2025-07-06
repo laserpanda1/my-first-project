@@ -1,7 +1,7 @@
 spring:
   data:
     rest:
-      base-path: /data-api
+      base-path: /api
   security:
     user:
       name: buzz
@@ -35,3 +35,5 @@ logging:
   level:
     tacos: WARN
 
+server:
+  port: 9000
