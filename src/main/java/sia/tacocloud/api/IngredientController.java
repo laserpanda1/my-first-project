@@ -1,4 +1,4 @@
-package sia.tacocloud;
+package sia.tacocloud.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
