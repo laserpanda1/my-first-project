@@ -1,4 +1,4 @@
-package sia.tacocloud.RabbitMQ;
+/*package sia.tacocloud.RabbitMQ;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,3 +22,4 @@ public class RabbitOrderReceiver implements OrderReceiver {
         return (TacoOrder) rabbitTemplate.receiveAndConvert("tacocloud.order.queue");
     }
 }
+*/

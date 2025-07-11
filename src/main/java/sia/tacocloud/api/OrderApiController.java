@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import sia.tacocloud.JMS.OrderMessagingService;
-import sia.tacocloud.RabbitMQ.RabbitOrderMessagingService;
+
 import sia.tacocloud.TacoOrder;
 import sia.tacocloud.data.OrderRepository;
 

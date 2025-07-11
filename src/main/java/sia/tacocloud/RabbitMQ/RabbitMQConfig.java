@@ -1,4 +1,4 @@
-package sia.tacocloud.RabbitMQ;
+/*package sia.tacocloud.RabbitMQ;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
@@ -12,3 +12,4 @@ public class RabbitMQConfig {
         return new Queue("tacocloud.order.queue", true);
     }
 }
+*/

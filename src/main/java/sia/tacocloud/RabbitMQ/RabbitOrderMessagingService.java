@@ -1,4 +1,4 @@
-package sia.tacocloud.RabbitMQ;
+/*package sia.tacocloud.RabbitMQ;
 
 //import com.rabbitmq.client.MessageProperties;
 import org.springframework.amqp.core.MessageProperties;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import sia.tacocloud.JMS.OrderMessagingService;
 import sia.tacocloud.TacoOrder;
 
-@Primary
+
 @Service
 public class RabbitOrderMessagingService implements OrderMessagingService {
 
@@ -36,3 +36,4 @@ public class RabbitOrderMessagingService implements OrderMessagingService {
         });
     }
 }
+*/
