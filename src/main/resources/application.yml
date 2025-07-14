@@ -37,3 +37,11 @@ logging:
 
 server:
   port: 8080
+
+tacocloud:
+  email:
+    host: imap.tacocloud.com
+    mailbox: INBOX
+    username: taco-in-flow
+    password: qwerty123
+    poll-rate: 10000

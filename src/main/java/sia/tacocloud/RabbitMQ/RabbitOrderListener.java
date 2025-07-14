@@ -17,7 +17,7 @@ public class RabbitOrderListener {
         this.ui = ui;
     }
 
-  //  @RabbitListener(queues = "tacocloud.order.queue")
+    @RabbitListener(queues = "tacocloud.order.queue")
     public void receiveOrder(TacoOrder order) {
         ui.displayOrder(order);
     }
