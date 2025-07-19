@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import java.util.*;
 
@@ -22,10 +23,16 @@ public class TacoOrder {
     private String ccExpiration;
     private String ccCVV;
 
-    private Set<Long> TacoIds = new LinkedHashSet<>();
+    private Set<Long> tacoIds = new LinkedHashSet<>();
 
-    private List<Taco> tacos = new ArrayList<>();
+    @Transient
+    private transient List<Taco> tacos = new ArrayList<>();
     public void addTaco(Taco taco) {
         this.tacos.add(taco);
+        if(taco.getId() != null) {
+            this.tacoIds.add(taco.getId());
+        }
     }
+
+
 }
