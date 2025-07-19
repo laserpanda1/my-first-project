@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import sia.tacocloud.data.TacoRepository;
@@ -71,7 +72,28 @@ public class TacoControllerTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void sould
+    public void souldSaveATaco() {
+        TacoRepository tacoRepo = Mockito.mock(TacoRepository.class);
+
+        WebTestClient testClient = WebTestClient.bindToController
+                (new TacoController(tacoRepo)).build();
+
+        Mono<Taco> unsavedTacoMono = Mono.just(testTaco(1L));
+        Taco savedTaco = testTaco(1L);
+        Flux<Taco> savedTacoMono = Flux.just(savedTaco);
+
+        when(tacoRepo.saveAll(any(Mono.class))).thenReturn(savedTacoMono);
+
+        testClient.post()
+                .uri("/api/tacos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(unsavedTacoMono, Taco.class)
+                .exchange()
+                .expectStatus().isCreated()
+                .expectBody(Taco.class)
+                .isEqualTo(savedTaco);
+
+    }
 
 }
 
